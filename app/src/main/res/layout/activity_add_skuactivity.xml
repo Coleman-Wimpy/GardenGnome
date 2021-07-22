@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddSKUActivity"
+    android:orientation="vertical"
+    android:background="@android:color/holo_orange_dark">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="15"
+        android:orientation="horizontal"
+        android:elevation="10dp"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textStyle="bold"
+            android:layout_weight="5"
+            android:padding="10dp"
+            />
+
+        <TextView
+            android:id="@+id/userTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="normal"
+            android:textSize="8pt"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:text="Coleman Wimpy"
+            android:layout_weight="5"
+            android:padding="10dp"
+            />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:weightSum="10"
+        android:background="@android:color/holo_orange_dark"
+        android:elevation="10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter SKU:"
+            android:textSize="9pt"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:layout_weight="7"
+            android:maxLines="1"
+            android:background="@color/white"
+            />
+
+        <EditText
+            android:id="@+id/skuEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="9pt"
+            android:padding="5dp"
+            android:layout_weight="3"
+            android:maxLines="1"
+            android:background="@color/white"
+            android:inputType="number"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        >
+
+        <ProgressBar
+            android:id="@+id/addSKUProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Location:"
+            android:textSize="8pt"
+            android:textStyle="bold"
+            android:background="@color/white"
+            android:padding="5dp"
+            android:elevation="5dp"
+            />
+
+        <Spinner
+            android:id="@+id/locationSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@color/white"
+            android:layout_marginBottom="20dp"
+            android:elevation="5dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Row:"
+            android:textStyle="bold"
+            android:textSize="8pt"
+            android:background="@color/white"
+            android:padding="5dp"
+            android:elevation="5dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/rowSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@color/white"
+            android:layout_marginBottom="20dp"
+            android:elevation="5dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Column:"
+            android:textSize="8pt"
+            android:textStyle="bold"
+            android:background="@color/white"
+            android:padding="5dp"
+            android:elevation="5dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/columnSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@color/white"
+            android:layout_marginBottom="20dp"
+            android:elevation="5dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/heightSpinnerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Height:"
+                android:background="@color/white"
+                android:textStyle="bold"
+                android:textSize="8pt"
+                android:padding="5dp"
+                android:elevation="5dp"
+                />
+
+            <Spinner
+                android:id="@+id/heightSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@color/white"
+                android:layout_marginBottom="20dp"
+                android:elevation="5dp"
+                />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:weightSum="10"
+            android:background="@android:color/holo_orange_dark"
+            android:elevation="10dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter Quantity:"
+                android:textSize="9pt"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:layout_weight="7"
+                android:maxLines="1"
+                android:background="@color/white"
+                />
+
+            <EditText
+                android:id="@+id/quantityEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="9pt"
+                android:padding="5dp"
+                android:layout_weight="3"
+                android:maxLines="1"
+                android:background="@color/white"
+                android:inputType="number"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addPalletButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Pallet"
+        android:textSize="8pt"
+        android:background="@color/white"
+        android:padding="5dp"
+        android:layout_gravity="center"
+        android:elevation="20dp"
+        />
+
+    <TextView
+        android:id="@+id/palletIDPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

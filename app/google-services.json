@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "654936726867",
+    "project_id": "gardengnome-16912",
+    "storage_bucket": "gardengnome-16912.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654936726867:android:93c40593b678ae58a955a6",
+        "android_client_info": {
+          "package_name": "com.example.gardengnome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654936726867-u485eai7i5katuqks737akm9m439a54i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAubAzYShwk3Kdfrffo0hg7dKpZ5fNOklg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "654936726867-u485eai7i5katuqks737akm9m439a54i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
