@@ -65,7 +65,7 @@
             android:textSize="9pt"
             android:layout_marginTop="10dp"
             android:padding="5dp"
-            android:layout_weight="7"
+            android:layout_weight="0"
             android:maxLines="1"
             android:background="@color/white"
         />
@@ -77,20 +77,30 @@
             android:layout_marginTop="10dp"
             android:textSize="9pt"
             android:padding="5dp"
-            android:layout_weight="3"
+            android:layout_weight="8"
             android:maxLines="1"
             android:background="@color/white"
             android:inputType="number"
             />
+
+        <ImageButton
+            android:id="@+id/skuSearchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_search"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <ListView
-        android:id="@+id/palletListView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:background="@color/white"
-        android:elevation="10dp"
-        tools:listitem="@layout/list_item_layout"></ListView>
+        android:elevation="10dp"></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

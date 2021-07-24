@@ -182,7 +182,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
 
             switch(location) {
 
-                case ("Fence"):
+                case ("F "):
                     heightSpinnerLayout.setVisibility(View.VISIBLE);
 
                     String[] fenceRows = getResources().getStringArray(R.array.fenceRows);
@@ -195,7 +195,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
                     adapterFCols.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     colSpinner.setAdapter(adapterFCols);
                     break;
-                case ("Behind Pad"):
+                case ("BP"):
                     heightSpinnerLayout.setVisibility(View.VISIBLE);
 
                     String[] behindPadRows = getResources().getStringArray(R.array.behindPadRows);
@@ -208,7 +208,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
                     adapterBPCols.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     colSpinner.setAdapter(adapterBPCols);
                     break;
-                case ("Pad Left"):
+                case ("PL"):
                     heightSpinnerLayout.setVisibility(View.GONE);
 
                     String[] padLeftRows = getResources().getStringArray(R.array.padLeftRows);
@@ -221,7 +221,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
                     adapterPLCols.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     rowSpinner.setAdapter(adapterPLCols);
                     break;
-                case ("Pad Right"):
+                case ("PR"):
                     heightSpinnerLayout.setVisibility(View.GONE);
 
                     String[] padRightRows = getResources().getStringArray(R.array.padRightRows);
@@ -234,7 +234,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
                     adapterPRCols.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     colSpinner.setAdapter(adapterPRCols);
                     break;
-                case ("Curb"):
+                case ("C "):
                     heightSpinnerLayout.setVisibility(View.GONE);
 
                     String[] curbRows = getResources().getStringArray(R.array.curbRows);
@@ -247,7 +247,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
                     adapterCurbCols.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     colSpinner.setAdapter(adapterCurbCols);
                     break;
-                case ("Walmart Fence"):
+                case ("WF"):
                     heightSpinnerLayout.setVisibility(View.GONE);
 
                     String[] walmartFenceRows = getResources().getStringArray(R.array.walmartFenceRows);

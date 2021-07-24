@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <GridLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="2"
+        android:columnCount="3"
         android:rowCount="2"
         >
 
@@ -19,6 +19,8 @@
             android:layout_row="0"
             android:orientation="horizontal"
             android:padding="5dp"
+            android:layout_columnWeight="0"
+            android:layout_rowWeight="0"
             >
 
             <TextView
@@ -47,6 +49,8 @@
             android:layout_row="0"
             android:orientation="horizontal"
             android:padding="5dp"
+            android:layout_columnWeight="0"
+            android:layout_rowWeight="0"
             >
 
             <TextView
@@ -76,6 +80,8 @@
             android:layout_row="1"
             android:orientation="horizontal"
             android:padding="5dp"
+            android:layout_columnWeight="0"
+            android:layout_rowWeight="0"
             >
 
             <TextView
@@ -105,6 +111,8 @@
             android:layout_row="1"
             android:orientation="horizontal"
             android:padding="5dp"
+            android:layout_columnWeight="0"
+            android:layout_rowWeight="0"
             >
 
             <TextView
@@ -126,14 +134,24 @@
                 />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/palletDeleteButton"
+            android:layout_width="150px"
+            android:layout_height="150px"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:src="@drawable/ic_delete"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:layout_rowSpan="2"
+            android:layout_columnWeight="0"
+            android:layout_rowWeight="0"/>
     </GridLayout>
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/palletDeleteButton"
-        android:layout_width="150px"
-        android:layout_height="150px"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:background="@color/white"
-        android:src="@drawable/ic_delete" />
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="?android:attr/listDivider" />
+
 </LinearLayout>

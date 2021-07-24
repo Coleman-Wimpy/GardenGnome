@@ -16,4 +16,35 @@ public class Pallet {
         this.location = location;
         this.createdBy = createdBy;
     }
+
+    public int getSku() {
+        return sku;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public String getPalletID() {
+        return palletID;
+    }
+
+    @Override
+    public String toString() {
+        return "Pallet{" +
+                "sku=" + sku +
+                ", quantity=" + quantity +
+                ", location='" + location + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", palletID='" + palletID + '\'' +
+                '}';
+    }
 }

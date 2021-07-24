@@ -2,12 +2,12 @@
 <resources>
 
     <string-array name="locationList">
-        <item>Behind Pad</item>
-        <item>Pad Left</item>
-        <item>Pad Right</item>
-        <item>Fence</item>
-        <item>Curb</item>
-        <item>Walmart Fence</item>
+        <item>BP</item>
+        <item>PL</item>
+        <item>PR</item>
+        <item>F </item>
+        <item>C </item>
+        <item>WF</item>
     </string-array>
 
     <string-array name="behindPadRows">
