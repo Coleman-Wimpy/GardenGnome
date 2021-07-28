@@ -65,9 +65,16 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
         });
 
         skuEditText = (EditText) findViewById(R.id.skuEditText);
+        Intent intent = getIntent();
+        String skuIntent = intent.getStringExtra("sku");
+        if(skuIntent != null) {
+            skuEditText.setText(skuIntent);
+        }
+
+
         quantityEditText = (EditText) findViewById(R.id.quantityEditText);
         userName = (TextView) findViewById(R.id.userTextView);
-        getUser();
+        userName.setText(intent.getStringExtra("username"));
 
         locationSpinner = (Spinner) findViewById(R.id.locationSpinner);
         locationSpinner.setOnItemSelectedListener(this);
@@ -101,8 +108,8 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
 
     private void addPallet() {
 
-        String location, currentUser, palletID;
-        int quantity, sku;
+        String location, currentUser, palletID, quantity;
+        int sku, quantityInt;
 
         palletID = palletIDPlaceholder.getText().toString();
         Toast.makeText(this, palletID, Toast.LENGTH_SHORT).show();
@@ -110,7 +117,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
         currentUser = userName.getText().toString();
 
         sku = Integer.parseInt(skuEditText.getText().toString());
-        quantity = Integer.parseInt(quantityEditText.getText().toString());
+        quantity = quantityEditText.getText().toString();
 
         if(sku == 0) {
             skuEditText.setError("Please Enter a SKU.");
@@ -118,10 +125,12 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
             return;
         }
 
-        if(quantity == 0) {
+        if(quantity.isEmpty() || quantity == null) {
             quantityEditText.setError("Please Enter Quantity.");
             quantityEditText.requestFocus();
             return;
+        }else {
+            quantityInt = Integer.parseInt(quantity);
         }
 
         if(palletID == null && !palletID.isEmpty()) {
@@ -132,7 +141,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
 
             if (heightSpinnerLayout.getVisibility() == View.GONE) {
                 location = locationSpinner.getSelectedItem().toString() + "-" + rowSpinner.getSelectedItem().toString() + "-" + colSpinner.getSelectedItem().toString();
-                Pallet pallet = new Pallet(palletID, sku, quantity, location, currentUser);
+                Pallet pallet = new Pallet(palletID, sku, quantityInt, location, currentUser);
 
                 progressBar.setVisibility(View.VISIBLE);
                 reference.child(sku + "").child("Pallets").child(palletID).setValue(pallet).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -152,7 +161,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
                 });
             } else {
                 location = locationSpinner.getSelectedItem().toString() + "-" + rowSpinner.getSelectedItem().toString() + "-" + colSpinner.getSelectedItem().toString() + "-" + heightSpinner.getSelectedItem().toString();
-                Pallet pallet = new Pallet(palletID, sku, quantity, location, currentUser);
+                Pallet pallet = new Pallet(palletID, sku, quantityInt, location, currentUser);
 
                 progressBar.setVisibility(View.VISIBLE);
                 reference.child(sku + "").child("Pallets").child(palletID).setValue(pallet).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -270,34 +279,6 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
-    }
-
-    private void getUser() {
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        userID = user.getUid();
-
-        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userProfle = snapshot.getValue(User.class);
-
-                if(userProfle != null) {
-                    String[] fullname = userProfle.fullname.split(" ");
-                    userName.setText(fullname[0]);
-                    Toast.makeText(AddSKUActivity.this, "Fullname Recieved", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Toast.makeText(AddSKUActivity.this, "No profile.", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AddSKUActivity.this, "Something went wrong.", Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     private void getPalletID() {
