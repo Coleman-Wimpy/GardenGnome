@@ -2,6 +2,7 @@ package com.example.gardengnome;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.deleteImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deletePallet(pallet);
+                alertDelete(pallet);
             }
         });
     }
@@ -66,6 +67,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 .child(String.valueOf(pallet.getSku()))
                 .child("Pallets")
                 .child(String.valueOf(pallet.getPalletID())).removeValue();
+    }
+
+    private void alertDelete(Pallet pallet) {
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
+                .setTitle("Delete Warning")
+                .setMessage("You are about to delete a pallet.")
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        deletePallet(pallet);
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).create();
+        alertDialog.show();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
