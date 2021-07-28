@@ -1,10 +1,12 @@
 package com.example.gardengnome;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,15 +56,6 @@ public class SearchSKUActivity extends AppCompatActivity{
             }
         });
 
-        addPalletButton = (Button) findViewById(R.id.addSKUButton);
-        addPalletButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SearchSKUActivity.this, AddSKUActivity.class));
-            }
-        });
-
-
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference();
         userID = user.getUid();
@@ -87,6 +80,16 @@ public class SearchSKUActivity extends AppCompatActivity{
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(SearchSKUActivity.this, "Something went wrong.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        addPalletButton = (Button) findViewById(R.id.addSKUButton);
+        addPalletButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchSKUActivity.this, AddSKUActivity.class);
+                intent.putExtra("username", fullnameTextView.getText().toString().trim());
+                startActivity(intent);
             }
         });
 
@@ -121,6 +124,28 @@ public class SearchSKUActivity extends AppCompatActivity{
                                 palletList.add(pallet);
                             }
                             adapter.notifyDataSetChanged();
+                        } else {
+                            palletList.clear();
+                            adapter.notifyDataSetChanged();
+                            AlertDialog alertDialog = new AlertDialog.Builder(SearchSKUActivity.this)
+                                    .setTitle("Pallet Search")
+                                    .setMessage("No pallets exist for this sku. Would you like to create one?")
+                                    .setPositiveButton("Add a Pallet", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            Intent intent = new Intent(SearchSKUActivity.this, AddSKUActivity.class);
+                                            intent.putExtra("sku", sku);
+                                            intent.putExtra("username", fullnameTextView.getText().toString().trim());
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.dismiss();
+                                        }
+                                    }).create();
+                            alertDialog.show();
                         }
                     }
 
@@ -132,8 +157,6 @@ public class SearchSKUActivity extends AppCompatActivity{
 
             }
         });
-
-
 
     }
 
