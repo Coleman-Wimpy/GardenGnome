@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        android:paddingTop="5dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@android:color/darker_gray">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Quantity"
+                android:textSize="12pt"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_orange_dark"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:padding="5dp"
+                android:layout_marginTop="5dp"
+                />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pallet ID: "
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:layout_weight="5"
+                    android:paddingLeft="20dp"
+                    android:background="@color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/palletIDTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:layout_weight="5"
+                    android:textAlignment="viewEnd"
+                    android:paddingRight="20dp"
+                    android:background="@color/white"
+                    />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="SKU: "
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:layout_weight="5"
+                    android:paddingLeft="20dp"
+                    android:background="@color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/skuTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:layout_weight="5"
+                    android:textAlignment="viewEnd"
+                    android:paddingRight="20dp"
+                    android:background="@color/white"
+                    />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Location: "
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:layout_weight="5"
+                    android:paddingLeft="20dp"
+                    android:background="@color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/locationTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:layout_weight="5"
+                    android:textAlignment="viewEnd"
+                    android:paddingRight="20dp"
+                    android:background="@color/white"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Quantity: "
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:layout_weight="5"
+                    android:paddingLeft="20dp"
+                    android:background="@color/white"
+                    />
+
+                <EditText
+                    android:id="@+id/quantityEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:layout_weight="5"
+                    android:textAlignment="viewEnd"
+                    android:paddingRight="20dp"
+                    android:maxLines="1"
+                    android:background="@color/white"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <Button
+                android:id="@+id/updateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Update Quantity"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="10pt"
+                android:layout_margin="5dp"
+                android:background="@color/white"
+                android:padding="15dp"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

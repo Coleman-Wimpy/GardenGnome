@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".SearchSKUActivity"
     android:orientation="vertical"
-    android:background="@android:color/holo_orange_dark">
+    android:background="@android:color/darker_gray">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,18 +23,21 @@
             android:textStyle="bold"
             android:layout_weight="10"
             android:padding="10dp"
+            android:background="@color/white"
+            android:textColor="@android:color/holo_orange_dark"
             />
 
         <TextView
             android:id="@+id/userTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textStyle="normal"
             android:textSize="8pt"
-            android:textColor="@color/black"
+            android:textColor="@android:color/holo_orange_dark"
             android:maxLines="1"
             android:layout_weight="5"
             android:padding="10dp"
+            android:background="@color/white"
             />
 
         <Button
@@ -46,6 +49,8 @@
             android:layout_weight="10"
             android:padding="10dp"
             android:maxLines="1"
+            android:background="@color/white"
+            android:textColor="@android:color/holo_orange_dark"
             />
     </LinearLayout>
 
@@ -54,8 +59,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="20dp"
-        android:weightSum="10"
-        android:background="@android:color/holo_orange_dark"
+        android:background="@android:color/darker_gray"
         android:elevation="10dp"
         >
         <TextView
@@ -65,9 +69,9 @@
             android:textSize="9pt"
             android:layout_marginTop="10dp"
             android:padding="5dp"
-            android:layout_weight="0"
             android:maxLines="1"
             android:background="@color/white"
+            android:textColor="@android:color/holo_orange_dark"
         />
 
         <EditText
@@ -81,6 +85,8 @@
             android:maxLines="1"
             android:background="@color/white"
             android:inputType="number"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textAlignment="viewEnd"
             />
 
         <ImageButton
@@ -101,6 +107,7 @@
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:background="@color/white"
-        android:elevation="10dp"></androidx.recyclerview.widget.RecyclerView>
+        android:elevation="10dp"
+        />
 
 </LinearLayout>

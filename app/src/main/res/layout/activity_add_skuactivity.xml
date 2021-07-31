@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AddSKUActivity"
     android:orientation="vertical"
-    android:background="@android:color/holo_orange_dark">
+    android:background="@android:color/darker_gray">
 
 
     <LinearLayout
@@ -25,19 +25,22 @@
             android:textStyle="bold"
             android:layout_weight="5"
             android:padding="10dp"
+            android:background="@color/white"
+            android:textColor="@android:color/holo_orange_dark"
             />
 
         <TextView
             android:id="@+id/userTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textStyle="normal"
             android:textSize="8pt"
-            android:textColor="@color/black"
+            android:textColor="@android:color/holo_orange_dark"
             android:maxLines="1"
-            android:text="Coleman Wimpy"
-            android:layout_weight="5"
+            android:text="Coleman"
+            android:layout_weight="10"
             android:padding="10dp"
+            android:background="@color/white"
             />
 
     </LinearLayout>
@@ -48,7 +51,7 @@
         android:orientation="horizontal"
         android:padding="20dp"
         android:weightSum="10"
-        android:background="@android:color/holo_orange_dark"
+        android:background="@android:color/darker_gray"
         android:elevation="10dp"
         >
         <TextView
@@ -58,9 +61,10 @@
             android:textSize="9pt"
             android:layout_marginTop="10dp"
             android:padding="5dp"
-            android:layout_weight="7"
+            android:layout_weight="0"
             android:maxLines="1"
             android:background="@color/white"
+            android:textColor="@android:color/holo_orange_dark"
             />
 
         <EditText
@@ -70,10 +74,12 @@
             android:layout_marginTop="10dp"
             android:textSize="9pt"
             android:padding="5dp"
-            android:layout_weight="3"
+            android:layout_weight="10"
             android:maxLines="1"
             android:background="@color/white"
             android:inputType="number"
+            android:textAlignment="viewEnd"
+            android:textColor="@android:color/holo_orange_dark"
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -101,6 +107,7 @@
             android:background="@color/white"
             android:padding="5dp"
             android:elevation="5dp"
+            android:textColor="@android:color/holo_orange_dark"
             />
 
         <Spinner
@@ -111,6 +118,7 @@
             android:background="@color/white"
             android:layout_marginBottom="20dp"
             android:elevation="5dp"
+            android:textColor="@android:color/holo_orange_dark"
             />
 
         <TextView
@@ -122,6 +130,7 @@
             android:background="@color/white"
             android:padding="5dp"
             android:elevation="5dp"
+            android:textColor="@android:color/holo_orange_dark"
             />
 
         <androidx.appcompat.widget.AppCompatSpinner
@@ -132,6 +141,7 @@
             android:background="@color/white"
             android:layout_marginBottom="20dp"
             android:elevation="5dp"
+            android:textColor="@android:color/holo_orange_dark"
             />
 
         <TextView
@@ -143,6 +153,7 @@
             android:background="@color/white"
             android:padding="5dp"
             android:elevation="5dp"
+            android:textColor="@android:color/holo_orange_dark"
             />
 
         <androidx.appcompat.widget.AppCompatSpinner
@@ -153,6 +164,7 @@
             android:background="@color/white"
             android:layout_marginBottom="20dp"
             android:elevation="5dp"
+            android:textColor="@android:color/holo_orange_dark"
             />
 
         <LinearLayout
@@ -171,6 +183,7 @@
                 android:textSize="8pt"
                 android:padding="5dp"
                 android:elevation="5dp"
+                android:textColor="@android:color/holo_orange_dark"
                 />
 
             <Spinner
@@ -181,6 +194,7 @@
                 android:background="@color/white"
                 android:layout_marginBottom="20dp"
                 android:elevation="5dp"
+                android:textColor="@android:color/holo_orange_dark"
                 />
         </LinearLayout>
 
@@ -188,9 +202,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="20dp"
             android:weightSum="10"
-            android:background="@android:color/holo_orange_dark"
+            android:background="@android:color/darker_gray"
             android:elevation="10dp"
             >
             <TextView
@@ -200,9 +213,10 @@
                 android:textSize="9pt"
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
-                android:layout_weight="7"
+                android:layout_weight="0"
                 android:maxLines="1"
                 android:background="@color/white"
+                android:textColor="@android:color/holo_orange_dark"
                 />
 
             <EditText
@@ -211,11 +225,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textSize="9pt"
+                android:textAlignment="viewEnd"
                 android:padding="5dp"
-                android:layout_weight="3"
+                android:layout_weight="10"
                 android:maxLines="1"
                 android:background="@color/white"
                 android:inputType="number"
+                android:textColor="@android:color/holo_orange_dark"
                 />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </LinearLayout>
@@ -230,6 +246,7 @@
         android:padding="5dp"
         android:layout_gravity="center"
         android:elevation="20dp"
+        android:textColor="@android:color/holo_orange_dark"
         />
 
     <TextView

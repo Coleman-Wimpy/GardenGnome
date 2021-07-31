@@ -5,7 +5,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,10 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 
 public class SearchSKUActivity extends AppCompatActivity{
 
@@ -46,13 +41,13 @@ public class SearchSKUActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_sku);
 
-
         logoutButton = (Button) findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(SearchSKUActivity.this, MainActivity.class));
+                finish();
             }
         });
 
@@ -65,10 +60,11 @@ public class SearchSKUActivity extends AppCompatActivity{
         reference.child("Users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userProfle = snapshot.getValue(User.class);
 
-                if (userProfle != null) {
-                    String[] fullname = userProfle.fullname.split(" ");
+                User userProfile = snapshot.getValue(User.class);
+
+                if (userProfile != null) {
+                    String[] fullname = userProfile.fullname.split(" ");
 
                     fullnameTextView.setText(fullname[0]);
                     //Toast.makeText(SearchSKUActivity.this, "Fullname Recieved", Toast.LENGTH_LONG).show();
@@ -108,7 +104,6 @@ public class SearchSKUActivity extends AppCompatActivity{
         skuSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String sku = skuEditText.getText().toString().trim();
 
                 reference.child("Inventory").child(sku).child("Pallets").addValueEventListener(new ValueEventListener() {
@@ -119,7 +114,7 @@ public class SearchSKUActivity extends AppCompatActivity{
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                 Pallet pallet = dataSnapshot.getValue(Pallet.class);
                                 long childCount = dataSnapshot.getChildrenCount();
-                               // Log.d("query", childCount + "");
+                                // Log.d("query", childCount + "");
                                 Log.d("pallet", pallet.toString());
                                 palletList.add(pallet);
                             }
@@ -135,7 +130,7 @@ public class SearchSKUActivity extends AppCompatActivity{
                                         public void onClick(DialogInterface dialogInterface, int i) {
                                             Intent intent = new Intent(SearchSKUActivity.this, AddSKUActivity.class);
                                             intent.putExtra("sku", sku);
-                                            intent.putExtra("username", fullnameTextView.getText().toString().trim());
+                                            intent.putExtra("username", fullnameTextView.getText().toString());
                                             startActivity(intent);
                                         }
                                     })
@@ -154,10 +149,7 @@ public class SearchSKUActivity extends AppCompatActivity{
 
                     }
                 });
-
             }
         });
-
     }
-
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/white">
+    android:background="@android:color/darker_gray">
 
 
     <ImageView
@@ -25,7 +25,7 @@
         android:layout_width="329dp"
         android:layout_height="353dp"
         android:layout_marginTop="60dp"
-        android:background="@color/white"
+        android:background="@android:color/darker_gray"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,8 +52,9 @@
                 android:layout_margin="20dp"
                 android:hint="Email"
                 android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textColorHint="@android:color/holo_orange_dark"
+                android:background="@color/white"
                 android:maxLines="1"/>
 
             <EditText
@@ -63,8 +64,9 @@
                 android:layout_margin="20dp"
                 android:hint="Password"
                 android:padding="10dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textColorHint="@android:color/holo_orange_dark"
+                android:background="@color/white"
                 android:maxLines="1"
                 android:inputType="textPassword"/>
 
@@ -72,7 +74,8 @@
                 android:id="@+id/loginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/holo_orange_dark"
+                android:background="@color/white"
+                android:textColor="@android:color/holo_orange_dark"
                 android:text="Login"
                 android:textSize="10pt" />
 
@@ -88,7 +91,9 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Forgot Password?"
-                    android:textColor="@color/black" />
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:background="@color/white"/>
 
                 <TextView
                     android:id="@+id/register"
@@ -96,8 +101,9 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Register"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@color/black" />
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:background="@color/white"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -35,6 +35,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            startActivity(new Intent(this, SearchSKUActivity.class));
+            finish();
+        }
+
         setContentView(R.layout.activity_main);
 
         register = (TextView) findViewById(R.id.register);
@@ -106,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     if(user.isEmailVerified()) {
                         startActivity(new Intent(MainActivity.this, SearchSKUActivity.class));
+                        finish();
                     }
                     else{
                         user.sendEmailVerification();

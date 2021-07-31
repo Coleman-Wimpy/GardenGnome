@@ -53,6 +53,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(AddSKUActivity.this, MainActivity.class));
+                finish();
             }
         });
 
@@ -133,6 +134,11 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
             quantityInt = Integer.parseInt(quantity);
         }
 
+        if(quantityInt == 0) {
+            quantityEditText.setError("Quantity must be greater than 0");
+            quantityEditText.requestFocus();
+        }
+
         if(palletID == null && !palletID.isEmpty()) {
             Toast.makeText(AddSKUActivity.this, palletID + "", Toast.LENGTH_LONG).show();
             return;
@@ -191,7 +197,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
 
             switch(location) {
 
-                case ("F "):
+                case ("F"):
                     heightSpinnerLayout.setVisibility(View.VISIBLE);
 
                     String[] fenceRows = getResources().getStringArray(R.array.fenceRows);
@@ -243,7 +249,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
                     adapterPRCols.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     colSpinner.setAdapter(adapterPRCols);
                     break;
-                case ("C "):
+                case ("C"):
                     heightSpinnerLayout.setVisibility(View.GONE);
 
                     String[] curbRows = getResources().getStringArray(R.array.curbRows);
