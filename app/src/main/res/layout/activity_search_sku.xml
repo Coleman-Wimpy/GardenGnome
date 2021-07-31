@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:weightSum="25"
         android:orientation="horizontal"
-        android:padding="10dp"
-        android:elevation="15dp">
+        android:padding="20dp">
         <Button
             android:id="@+id/logoutButton"
             android:layout_width="wrap_content"
@@ -25,6 +24,7 @@
             android:padding="10dp"
             android:background="@color/white"
             android:textColor="@android:color/holo_orange_dark"
+            android:elevation="15dp"
             />
 
         <TextView
@@ -51,6 +51,7 @@
             android:maxLines="1"
             android:background="@color/white"
             android:textColor="@android:color/holo_orange_dark"
+            android:elevation="15dp"
             />
     </LinearLayout>
 
@@ -60,11 +61,10 @@
         android:orientation="horizontal"
         android:padding="20dp"
         android:background="@android:color/darker_gray"
-        android:elevation="10dp"
         >
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:text="Enter SKU:"
             android:textSize="9pt"
             android:layout_marginTop="10dp"
@@ -72,32 +72,49 @@
             android:maxLines="1"
             android:background="@color/white"
             android:textColor="@android:color/holo_orange_dark"
+            android:layout_weight="5"
+            android:textAlignment="center"
         />
 
         <EditText
             android:id="@+id/skuEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:textSize="9pt"
             android:padding="5dp"
-            android:layout_weight="8"
+            android:layout_weight="5"
             android:maxLines="1"
             android:background="@color/white"
             android:inputType="number"
             android:textColor="@android:color/holo_orange_dark"
-            android:textAlignment="viewEnd"
+            android:textAlignment="center"
             />
 
         <ImageButton
             android:id="@+id/skuSearchButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_search"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:padding="5dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
+            android:elevation="15dp"
+            />
+
+        <Button
+            android:id="@+id/ohButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:layout_weight="2"
+            android:background="@color/white"
+            android:text="OH"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="9pt"
+            android:elevation="10dp"
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
 

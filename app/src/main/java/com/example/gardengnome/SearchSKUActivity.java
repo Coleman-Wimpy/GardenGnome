@@ -5,6 +5,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 public class SearchSKUActivity extends AppCompatActivity{
 
     private EditText skuEditText;
-    private Button logoutButton, addPalletButton;
+    private Button logoutButton, addPalletButton, ohButton;
     private ImageButton skuSearchButton;
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
@@ -35,6 +37,8 @@ public class SearchSKUActivity extends AppCompatActivity{
     DatabaseReference reference;
     private String userID;
     private ArrayList<Pallet> palletList;
+    private ArrayList<User> userProfile;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class SearchSKUActivity extends AppCompatActivity{
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference();
         userID = user.getUid();
+        userProfile = new ArrayList<>();
 
         final TextView fullnameTextView = (TextView) findViewById(R.id.userTextView);
 
@@ -61,10 +66,10 @@ public class SearchSKUActivity extends AppCompatActivity{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                User userProfile = snapshot.getValue(User.class);
+                userProfile.add(snapshot.getValue(User.class));
 
                 if (userProfile != null) {
-                    String[] fullname = userProfile.fullname.split(" ");
+                    String[] fullname = userProfile.get(0).fullname.split(" ");
 
                     fullnameTextView.setText(fullname[0]);
                     //Toast.makeText(SearchSKUActivity.this, "Fullname Recieved", Toast.LENGTH_LONG).show();
@@ -89,11 +94,19 @@ public class SearchSKUActivity extends AppCompatActivity{
             }
         });
 
+        ohButton = (Button) findViewById(R.id.ohButton);
+        ohButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         palletList = new ArrayList<>();
-        adapter = new RecyclerAdapter(this, palletList);
+        adapter = new RecyclerAdapter(this, palletList, userProfile);
         recyclerView.setAdapter(adapter);
 
 

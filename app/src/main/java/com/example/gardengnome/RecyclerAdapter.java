@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,19 +26,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.reflect.Array;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private ArrayList<Pallet> palletList;
+    private ArrayList<User> userProfile;
     private Context context;
     private Dialog dialog;
 
 
-    public RecyclerAdapter(Context context, ArrayList<Pallet> palletList){
+    public RecyclerAdapter(Context context, ArrayList<Pallet> palletList, ArrayList<User> userProfile){
         this.context = context;
         this.palletList = palletList;
+        this.userProfile = userProfile;
     }
 
     @NonNull
@@ -112,6 +120,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         dialog.show();
 
         quantityEditText.setText(pallet.getQuantity() + "");
+        int previousQuantity = pallet.getQuantity();
         palletIDTextView.setText(pallet.getPalletID());
         skuTextView.setText(pallet.getSku() + "");
         locationTextView.setText(pallet.getLocation());
@@ -129,11 +138,37 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     return;
                 }
 
-                reference.child(pallet.getSku() + "").child("Pallets").child(pallet.getPalletID()).child("quantity").setValue(newQuantity).addOnCompleteListener(new OnCompleteListener<Void>() {
+                reference.child(pallet.getSku() + "")
+                        .child("Pallets")
+                        .child(pallet.getPalletID())
+                        .child("quantity").setValue(newQuantity).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
-                            dialog.cancel();
+
+                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+                            LocalDateTime dateTime = LocalDateTime.now();
+                            String date = dtf.format(dateTime);
+
+                            String userName = userProfile.get(0).fullname.split(" ")[0];
+
+                            OHChange ohChange = new OHChange(pallet.getPalletID(), pallet.getSku(), previousQuantity, newQuantity, date, userName);
+
+                            reference.child(pallet.getSku() + "")
+                                    .child("OH_Changes")
+                                    .child(date)
+                                    .setValue(ohChange).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        dialog.cancel();
+                                    }
+                                    else{
+                                        Toast.makeText(context, "Error adding OH Change Log", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                         }
                         else{
                             Toast.makeText(context, "Error Updating Quantity. Try Again.", Toast.LENGTH_LONG).show();

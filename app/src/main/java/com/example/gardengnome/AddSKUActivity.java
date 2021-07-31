@@ -109,24 +109,33 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
 
     private void addPallet() {
 
-        String location, currentUser, palletID, quantity;
-        int sku, quantityInt;
+        String location, currentUser, palletID, quantity, sku;
+        int skuInt, quantityInt;
 
         palletID = palletIDPlaceholder.getText().toString();
-        Toast.makeText(this, palletID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, palletID, Toast.LENGTH_SHORT).show();
 
         currentUser = userName.getText().toString();
 
-        sku = Integer.parseInt(skuEditText.getText().toString());
+        sku = skuEditText.getText().toString();
         quantity = quantityEditText.getText().toString();
 
-        if(sku == 0) {
+        if(sku.isEmpty()) {
             skuEditText.setError("Please Enter a SKU.");
             skuEditText.requestFocus();
             return;
         }
+        else{
+            skuInt= Integer.parseInt(sku);
+        }
 
-        if(quantity.isEmpty() || quantity == null) {
+        if(skuInt == 0) {
+            skuEditText.setError("Please enter a SKU not equal to 0.");
+            skuEditText.requestFocus();
+            return;
+        }
+
+        if(quantity.isEmpty()) {
             quantityEditText.setError("Please Enter Quantity.");
             quantityEditText.requestFocus();
             return;
@@ -137,6 +146,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
         if(quantityInt == 0) {
             quantityEditText.setError("Quantity must be greater than 0");
             quantityEditText.requestFocus();
+            return;
         }
 
         if(palletID == null && !palletID.isEmpty()) {
@@ -147,7 +157,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
 
             if (heightSpinnerLayout.getVisibility() == View.GONE) {
                 location = locationSpinner.getSelectedItem().toString() + "-" + rowSpinner.getSelectedItem().toString() + "-" + colSpinner.getSelectedItem().toString();
-                Pallet pallet = new Pallet(palletID, sku, quantityInt, location, currentUser);
+                Pallet pallet = new Pallet(palletID, skuInt, quantityInt, location, currentUser);
 
                 progressBar.setVisibility(View.VISIBLE);
                 reference.child(sku + "").child("Pallets").child(palletID).setValue(pallet).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -167,7 +177,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
                 });
             } else {
                 location = locationSpinner.getSelectedItem().toString() + "-" + rowSpinner.getSelectedItem().toString() + "-" + colSpinner.getSelectedItem().toString() + "-" + heightSpinner.getSelectedItem().toString();
-                Pallet pallet = new Pallet(palletID, sku, quantityInt, location, currentUser);
+                Pallet pallet = new Pallet(palletID, skuInt, quantityInt, location, currentUser);
 
                 progressBar.setVisibility(View.VISIBLE);
                 reference.child(sku + "").child("Pallets").child(palletID).setValue(pallet).addOnCompleteListener(new OnCompleteListener<Void>() {
