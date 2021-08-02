@@ -44,8 +44,8 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
     private LinearLayout heightSpinnerLayout;
     DatabaseReference reference;
     private String userID;
-    private ArrayList<User> userList;
     FirebaseUser currentUser;
+    private Boolean isAdmin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,20 +73,14 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference();
         userID = currentUser.getUid();
-        Log.d("userID", userID);
-        userList = new ArrayList<>();
-        String userRoleID;
 
         final TextView userHolder = (TextView) findViewById(R.id.userHolder);
 
         reference.child("Users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //User user = snapshot.getValue(User.class);
-                userList.add(snapshot.getValue(User.class));
-                String roleID = userList.get(0).userRoleID + "";
-                Log.d("user role", "" + userList.get(0).userRoleID);
-                userHolder.setText(roleID);
+                int roleID = snapshot.getValue(User.class).userRoleID;
+                isAdmin(roleID);
             }
 
             @Override
@@ -94,11 +88,6 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
                 Toast.makeText(AddSKUActivity.this, "Error getting User", Toast.LENGTH_LONG).show();
             }
         });
-
-        Log.d("userrole: ", userHolder.getText().toString());
-        String id = userHolder.getText().toString().trim();
-        //int userId = Integer.parseInt(id);
-        int userId = 2;
 
         skuEditText = (EditText) findViewById(R.id.skuEditText);
         Intent intent = getIntent();
@@ -112,8 +101,8 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
 
-                if(userId != 2) {
-                    Log.w("userrole: ", id);
+                if(!isAdmin) {
+                    //Log.w("userrole: ", id);
                     AlertDialog alertDialog = new AlertDialog.Builder(AddSKUActivity.this)
                             .setTitle("Access Denied")
                             .setMessage("You do not have access for this feature.")
@@ -269,6 +258,13 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
 
         palletIDPlaceholder = (TextView) findViewById(R.id.palletIDPlaceholder);
         getPalletID();
+    }
+
+    private void isAdmin(int roleID) {
+
+        if(roleID == 2) {
+            isAdmin = true;
+        }
     }
 
     private void addPallet() {

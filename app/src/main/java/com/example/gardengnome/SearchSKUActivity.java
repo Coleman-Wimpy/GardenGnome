@@ -40,6 +40,7 @@ public class SearchSKUActivity extends AppCompatActivity{
     private ArrayList<Pallet> palletList;
     private ArrayList<User> userProfile;
     private Dialog dialog;
+    private Boolean isAdmin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class SearchSKUActivity extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 userProfile.add(snapshot.getValue(User.class));
+                isAdmin(snapshot.getValue(User.class).userRoleID);
 
                 if (userProfile != null) {
                     String[] fullname = userProfile.get(0).fullname.split(" ");
@@ -102,60 +104,74 @@ public class SearchSKUActivity extends AppCompatActivity{
         ohButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sku =  skuEditText.getText().toString().trim();
-                if(sku.isEmpty()){
-                    skuEditText.setError("Please enter a SKU");
-                    skuEditText.requestFocus();
-                    return;
+                if(!isAdmin){
+                    android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(SearchSKUActivity.this)
+                            .setTitle("Access Denied")
+                            .setMessage("You do not have access for this feature.")
+                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            }).create();
+                    alertDialog.show();
                 }
+                else {
+                    String sku = skuEditText.getText().toString().trim();
+                    if (sku.isEmpty()) {
+                        skuEditText.setError("Please enter a SKU");
+                        skuEditText.requestFocus();
+                        return;
+                    }
 
-                Dialog ohChangeDialog = new Dialog(SearchSKUActivity.this);
-                ohChangeDialog.setContentView(R.layout.oh_changes);
+                    Dialog ohChangeDialog = new Dialog(SearchSKUActivity.this);
+                    ohChangeDialog.setContentView(R.layout.oh_changes);
 
-                RecyclerView ohChangeRecyclerView = (RecyclerView) ohChangeDialog.findViewById(R.id.ohRecyclerView);
-                ohChangeRecyclerView.setHasFixedSize(true);
-                ohChangeRecyclerView.setLayoutManager(new LinearLayoutManager(SearchSKUActivity.this));
-                ArrayList<OHChange> ohChangeList = new ArrayList<>();
-                OHChangeRecyclerAdapter adapter1 = new OHChangeRecyclerAdapter(ohChangeList, SearchSKUActivity.this);
-                ohChangeRecyclerView.setAdapter(adapter1);
+                    RecyclerView ohChangeRecyclerView = (RecyclerView) ohChangeDialog.findViewById(R.id.ohRecyclerView);
+                    ohChangeRecyclerView.setHasFixedSize(true);
+                    ohChangeRecyclerView.setLayoutManager(new LinearLayoutManager(SearchSKUActivity.this));
+                    ArrayList<OHChange> ohChangeList = new ArrayList<>();
+                    OHChangeRecyclerAdapter adapter1 = new OHChangeRecyclerAdapter(ohChangeList, SearchSKUActivity.this);
+                    ohChangeRecyclerView.setAdapter(adapter1);
 
-                TextView skuTextView = (TextView) ohChangeDialog.findViewById(R.id.ohSkuTextView);
+                    TextView skuTextView = (TextView) ohChangeDialog.findViewById(R.id.ohSkuTextView);
 
-                ohChangeDialog.show();
-                skuTextView.setText(sku);
+                    ohChangeDialog.show();
+                    skuTextView.setText(sku);
 
-                reference.child("Inventory").child(sku).child("OH_Changes").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ohChangeList.clear();
-                        if(snapshot.exists()){
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                                OHChange ohChange = dataSnapshot.getValue(OHChange.class);
-                                ohChangeList.add(ohChange);
+                    reference.child("Inventory").child(sku).child("OH_Changes").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            ohChangeList.clear();
+                            if (snapshot.exists()) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    OHChange ohChange = dataSnapshot.getValue(OHChange.class);
+                                    ohChangeList.add(ohChange);
+                                }
+                                adapter1.notifyDataSetChanged();
+                            } else {
+                                palletList.clear();
+                                adapter.notifyDataSetChanged();
+                                AlertDialog alertDialog = new AlertDialog.Builder(SearchSKUActivity.this)
+                                        .setTitle("On-Hand Changes")
+                                        .setMessage("No On-Hand Changes exist for this sku")
+                                        .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                                ohChangeDialog.cancel();
+                                            }
+                                        }).create();
+                                alertDialog.show();
                             }
-                            adapter1.notifyDataSetChanged();
-                        }else{
-                            palletList.clear();
-                            adapter.notifyDataSetChanged();
-                            AlertDialog alertDialog = new AlertDialog.Builder(SearchSKUActivity.this)
-                                    .setTitle("On-Hand Changes")
-                                    .setMessage("No On-Hand Changes exist for this sku")
-                                    .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            dialogInterface.dismiss();
-                                            ohChangeDialog.cancel();
-                                        }
-                                    }).create();
-                            alertDialog.show();
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         });
 
@@ -216,5 +232,11 @@ public class SearchSKUActivity extends AppCompatActivity{
                 });
             }
         });
+    }
+
+    private void isAdmin(int roleID) {
+        if(roleID == 2){
+            isAdmin = true;
+        }
     }
 }
