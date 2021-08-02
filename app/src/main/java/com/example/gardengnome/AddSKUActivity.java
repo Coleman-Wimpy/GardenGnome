@@ -1,8 +1,12 @@
 package com.example.gardengnome;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.ArrayMap;
@@ -32,15 +36,16 @@ import java.util.ArrayList;
 
 public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    private Button logoutButton, addPalletButton;
+    private Button logoutButton, addPalletButton, skuChangeButton;
     private EditText skuEditText, quantityEditText;
     private TextView userName, palletIDPlaceholder;
     private Spinner locationSpinner, rowSpinner, colSpinner, heightSpinner;
     private ProgressBar progressBar;
     private LinearLayout heightSpinnerLayout;
-    FirebaseUser user;
     DatabaseReference reference;
     private String userID;
+    private ArrayList<User> userList;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +70,173 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference();
+        userID = currentUser.getUid();
+        Log.d("userID", userID);
+        userList = new ArrayList<>();
+        String userRoleID;
+
+        final TextView userHolder = (TextView) findViewById(R.id.userHolder);
+
+        reference.child("Users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //User user = snapshot.getValue(User.class);
+                userList.add(snapshot.getValue(User.class));
+                String roleID = userList.get(0).userRoleID + "";
+                Log.d("user role", "" + userList.get(0).userRoleID);
+                userHolder.setText(roleID);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(AddSKUActivity.this, "Error getting User", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        Log.d("userrole: ", userHolder.getText().toString());
+        String id = userHolder.getText().toString().trim();
+        //int userId = Integer.parseInt(id);
+        int userId = 2;
+
         skuEditText = (EditText) findViewById(R.id.skuEditText);
         Intent intent = getIntent();
         String skuIntent = intent.getStringExtra("sku");
         if(skuIntent != null) {
             skuEditText.setText(skuIntent);
         }
+
+        skuChangeButton = (Button) findViewById(R.id.skuChangeButton);
+        skuChangeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(userId != 2) {
+                    Log.w("userrole: ", id);
+                    AlertDialog alertDialog = new AlertDialog.Builder(AddSKUActivity.this)
+                            .setTitle("Access Denied")
+                            .setMessage("You do not have access for this feature.")
+                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            }).create();
+                    alertDialog.show();
+                }
+                else {
+
+                    Dialog dialog = new Dialog(AddSKUActivity.this);
+                    dialog.setContentView(R.layout.edit_skus);
+
+                    EditText skuChangeEditText = (EditText) dialog.findViewById(R.id.skuChangeEditText);
+                    Button addSKUButton = (Button) dialog.findViewById(R.id.skuAddButton);
+                    Button deleteSKUButton = (Button) dialog.findViewById(R.id.skuDeleteButton);
+
+                    dialog.show();
+
+                    addSKUButton.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+
+                            String sku = skuChangeEditText.getText().toString();
+
+                            if (sku.isEmpty()) {
+                                skuChangeEditText.setError("Please enter a SKU.");
+                                skuChangeEditText.requestFocus();
+                                return;
+                            }
+
+                            if (Integer.parseInt(sku) == 0) {
+                                skuChangeEditText.setError("Please enter a valid SKU");
+                                skuChangeEditText.requestFocus();
+                                return;
+                            }
+
+                            AlertDialog alertDialog = new AlertDialog.Builder(AddSKUActivity.this)
+                                    .setTitle("Add New SKU into Inventory")
+                                    .setMessage("Do you want to add this sku: " + sku + " into the system?")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            reference.child("Inventory")
+                                                    .child(sku)
+                                                    .setValue("Active").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(AddSKUActivity.this, "SKU added!", Toast.LENGTH_SHORT).show();
+                                                        dialogInterface.dismiss();
+                                                    } else {
+                                                        Toast.makeText(AddSKUActivity.this, "Error adding SKU. Please Try again.", Toast.LENGTH_LONG).show();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.dismiss();
+                                        }
+                                    }).create();
+                            alertDialog.show();
+                        }
+                    });
+
+                    deleteSKUButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            String sku = skuChangeEditText.getText().toString();
+
+                            if (sku.isEmpty()) {
+                                skuChangeEditText.setError("Please enter a SKU.");
+                                skuChangeEditText.requestFocus();
+                                return;
+                            }
+
+                            if (Integer.parseInt(sku) == 0) {
+                                skuChangeEditText.setError("Please enter a valid SKU");
+                                skuChangeEditText.requestFocus();
+                                return;
+                            }
+
+                            AlertDialog alertDialog = new AlertDialog.Builder(AddSKUActivity.this)
+                                    .setTitle("Delete SKU from Inventory")
+                                    .setMessage("Do you want to delete this sku: " + sku + " into the system?")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            reference.child("Inventory")
+                                                    .child(sku)
+                                                    .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(AddSKUActivity.this, "SKU deleted successfully.", Toast.LENGTH_SHORT).show();
+                                                        dialogInterface.dismiss();
+                                                    } else {
+                                                        Toast.makeText(AddSKUActivity.this, "Error deleting SKU. Please try again.", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    })
+                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.dismiss();
+                                        }
+                                    }).create();
+                            alertDialog.show();
+                        }
+                    });
+                }
+            }
+        });
 
 
         quantityEditText = (EditText) findViewById(R.id.quantityEditText);
@@ -100,8 +266,6 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
         heightSpinner.setAdapter(adapterHeight);
 
         heightSpinnerLayout = (LinearLayout) findViewById(R.id.heightSpinnerLayout);
-
-        reference = FirebaseDatabase.getInstance().getReference("Inventory");
 
         palletIDPlaceholder = (TextView) findViewById(R.id.palletIDPlaceholder);
         getPalletID();
@@ -160,7 +324,11 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
                 Pallet pallet = new Pallet(palletID, skuInt, quantityInt, location, currentUser);
 
                 progressBar.setVisibility(View.VISIBLE);
-                reference.child(sku + "").child("Pallets").child(palletID).setValue(pallet).addOnCompleteListener(new OnCompleteListener<Void>() {
+                reference.child("Inventory")
+                        .child(sku + "")
+                        .child("Pallets")
+                        .child(palletID)
+                        .setValue(pallet).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
@@ -180,7 +348,11 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
                 Pallet pallet = new Pallet(palletID, skuInt, quantityInt, location, currentUser);
 
                 progressBar.setVisibility(View.VISIBLE);
-                reference.child(sku + "").child("Pallets").child(palletID).setValue(pallet).addOnCompleteListener(new OnCompleteListener<Void>() {
+                reference.child("Inventory")
+                        .child(sku + "")
+                        .child("Pallets")
+                        .child(palletID)
+                        .setValue(pallet).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
@@ -299,7 +471,7 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
 
     private void getPalletID() {
 
-        reference.child("newPalletID").addValueEventListener(new ValueEventListener() {
+        reference.child("Inventory").child("newPalletID").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String palletID = snapshot.getValue(String.class);
@@ -317,6 +489,6 @@ public class AddSKUActivity extends AppCompatActivity implements AdapterView.OnI
     private void updatePalletID(String newPalletID) {
         int palletID = Integer.parseInt(newPalletID);
         palletID++;
-        reference.child("newPalletID").setValue(palletID + "");
+        reference.child("Inventory").child("newPalletID").setValue(palletID + "");
     }
 }

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:columnCount="2"
         android:rowCount="2"
-        android:background="@color/white"
+        android:background="@android:color/holo_orange_dark"
         >
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -23,11 +23,10 @@
             >
 
             <TextView
-                android:id="@+id/palletIDLabelTextView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Pallet ID:"
-                android:textSize="7pt"
+                android:textSize="6pt"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_orange_dark"
                 android:background="@color/white"
@@ -35,10 +34,10 @@
 
             <TextView
                 android:id="@+id/palletIDTextView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="122303"
-                android:textSize="7pt"
+                android:textSize="6pt"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_orange_dark"
                 android:background="@color/white"
@@ -52,14 +51,14 @@
             android:layout_row="0"
             android:orientation="horizontal"
             android:padding="5dp"
-            android:layout_gravity="right"
+            android:layout_gravity="center"
             >
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Changed By:"
-                android:textSize="7pt"
+                android:textSize="6pt"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_orange_dark"
                 android:background="@color/white"
@@ -67,10 +66,10 @@
 
             <TextView
                 android:id="@+id/changedByTextView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Coleman"
-                android:textSize="7pt"
+                android:textSize="6pt"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_orange_dark"
                 android:background="@color/white"
@@ -88,10 +87,10 @@
             >
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Previous Quantity:"
-                android:textSize="7pt"
+                android:textSize="6pt"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_orange_dark"
                 android:background="@color/white"
@@ -99,10 +98,10 @@
 
             <TextView
                 android:id="@+id/previousQuantityTextView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="245"
-                android:textSize="7pt"
+                android:textSize="6pt"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_orange_dark"
                 android:background="@color/white"
@@ -118,14 +117,14 @@
             android:layout_row="1"
             android:orientation="horizontal"
             android:padding="5dp"
-            android:layout_gravity="right"
+            android:layout_gravity="center"
             >
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="New Quantity:"
-                android:textSize="7pt"
+                android:textSize="6pt"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_orange_dark"
                 android:background="@color/white"
@@ -133,10 +132,10 @@
 
             <TextView
                 android:id="@+id/newQuantityTextView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="140"
-                android:textSize="7pt"
+                android:textSize="6pt"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_orange_dark"
                 android:background="@color/white"

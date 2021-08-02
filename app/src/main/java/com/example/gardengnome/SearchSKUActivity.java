@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -94,11 +95,67 @@ public class SearchSKUActivity extends AppCompatActivity{
             }
         });
 
+        skuEditText = (EditText) findViewById(R.id.skuEditText);
+        skuSearchButton = (ImageButton) findViewById(R.id.skuSearchButton);
+
         ohButton = (Button) findViewById(R.id.ohButton);
         ohButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String sku =  skuEditText.getText().toString().trim();
+                if(sku.isEmpty()){
+                    skuEditText.setError("Please enter a SKU");
+                    skuEditText.requestFocus();
+                    return;
+                }
 
+                Dialog ohChangeDialog = new Dialog(SearchSKUActivity.this);
+                ohChangeDialog.setContentView(R.layout.oh_changes);
+
+                RecyclerView ohChangeRecyclerView = (RecyclerView) ohChangeDialog.findViewById(R.id.ohRecyclerView);
+                ohChangeRecyclerView.setHasFixedSize(true);
+                ohChangeRecyclerView.setLayoutManager(new LinearLayoutManager(SearchSKUActivity.this));
+                ArrayList<OHChange> ohChangeList = new ArrayList<>();
+                OHChangeRecyclerAdapter adapter1 = new OHChangeRecyclerAdapter(ohChangeList, SearchSKUActivity.this);
+                ohChangeRecyclerView.setAdapter(adapter1);
+
+                TextView skuTextView = (TextView) ohChangeDialog.findViewById(R.id.ohSkuTextView);
+
+                ohChangeDialog.show();
+                skuTextView.setText(sku);
+
+                reference.child("Inventory").child(sku).child("OH_Changes").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ohChangeList.clear();
+                        if(snapshot.exists()){
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                OHChange ohChange = dataSnapshot.getValue(OHChange.class);
+                                ohChangeList.add(ohChange);
+                            }
+                            adapter1.notifyDataSetChanged();
+                        }else{
+                            palletList.clear();
+                            adapter.notifyDataSetChanged();
+                            AlertDialog alertDialog = new AlertDialog.Builder(SearchSKUActivity.this)
+                                    .setTitle("On-Hand Changes")
+                                    .setMessage("No On-Hand Changes exist for this sku")
+                                    .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.dismiss();
+                                            ohChangeDialog.cancel();
+                                        }
+                                    }).create();
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
@@ -108,11 +165,6 @@ public class SearchSKUActivity extends AppCompatActivity{
         palletList = new ArrayList<>();
         adapter = new RecyclerAdapter(this, palletList, userProfile);
         recyclerView.setAdapter(adapter);
-
-
-
-        skuEditText = (EditText) findViewById(R.id.skuEditText);
-        skuSearchButton = (ImageButton) findViewById(R.id.skuSearchButton);
 
         skuSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +178,7 @@ public class SearchSKUActivity extends AppCompatActivity{
                         if (snapshot.exists()) {
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                 Pallet pallet = dataSnapshot.getValue(Pallet.class);
-                                long childCount = dataSnapshot.getChildrenCount();
+                                //long childCount = dataSnapshot.getChildrenCount();
                                 // Log.d("query", childCount + "");
                                 Log.d("pallet", pallet.toString());
                                 palletList.add(pallet);

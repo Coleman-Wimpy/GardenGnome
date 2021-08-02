@@ -11,12 +11,15 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:paddingTop="5dp"
+        android:background="@android:color/holo_orange_dark"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@android:color/holo_orange_dark"
+            >
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -28,13 +31,13 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="OH Changes"
-                android:layout_weight="2"
+                android:text="@string/oh_change"
+                android:layout_weight="3"
                 android:textSize="8pt"
                 android:background="@color/white"
                 android:textColor="@android:color/holo_orange_dark"
                 android:padding="5dp"
-                android:layout_marginRight="4dp"
+                android:maxLines="1"
                 />
 
             <TextView
@@ -55,7 +58,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:background="@color/white"
-                android:text="1001234456"
                 android:textSize="8pt"
                 android:padding="5dp"
                 android:textColor="@android:color/holo_orange_dark"
@@ -67,7 +69,7 @@
             android:id="@+id/ohRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
+            android:layout_margin="15dp"
             android:background="@color/white"
             />
         </LinearLayout>

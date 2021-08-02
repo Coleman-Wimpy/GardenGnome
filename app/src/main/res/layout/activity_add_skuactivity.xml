@@ -6,7 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".AddSKUActivity"
     android:orientation="vertical"
-    android:background="@android:color/darker_gray">
+    android:background="@android:color/holo_orange_dark">
+
+    <TextView
+        android:id="@+id/userHolder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
 
 
     <LinearLayout
@@ -14,7 +19,10 @@
         android:layout_height="wrap_content"
         android:weightSum="15"
         android:orientation="horizontal"
-        android:elevation="10dp">
+        android:elevation="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
         <Button
             android:id="@+id/logoutButton"
@@ -44,15 +52,31 @@
             android:elevation="15dp"
             />
 
+        <Button
+            android:id="@+id/skuChangeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit SKUs"
+            android:textStyle="bold"
+            android:layout_weight="10"
+            android:padding="10dp"
+            android:maxLines="1"
+            android:background="@color/white"
+            android:textColor="@android:color/holo_orange_dark"
+            android:elevation="15dp"
+            />
+
     </LinearLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:weightSum="10"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/holo_orange_dark"
         >
 
         <TextView
@@ -206,7 +230,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="10"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/holo_orange_dark"
             android:elevation="10dp"
             >
             <TextView

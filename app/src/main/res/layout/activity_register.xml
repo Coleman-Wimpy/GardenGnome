@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="@android:color/darker_gray">
+    android:background="@android:color/holo_orange_dark">
 
     <ImageView
         android:id="@+id/hdlogo"
@@ -24,7 +24,7 @@
         android:layout_width="325dp"
         android:layout_height="415dp"
         android:layout_marginTop="60dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/holo_orange_dark"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

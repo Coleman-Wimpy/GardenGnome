@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Garden Gnome</string>
+    <string name="oh_change"><u>On-Hand Changes</u></string>
 </resources>

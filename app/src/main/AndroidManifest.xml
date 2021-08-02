@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".AddSKUActivity"></activity>
+        <activity android:name=".AddSKUActivity" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".SearchSKUActivity" />
         <activity android:name=".RegisterActivity" />
