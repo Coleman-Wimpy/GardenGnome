@@ -38,6 +38,7 @@ public class OHChangeRecyclerAdapter extends RecyclerView.Adapter<OHChangeRecycl
         holder.changedByTextView.setText(ohChange.getChangedBy());
         holder.previousQuantityTextView.setText(String.valueOf(ohChange.getPreviousQuantity()));
         holder.newQuantityTextView.setText(String.valueOf(ohChange.getNewQuantity()));
+        holder.ohChangeDateTextView.setText(ohChange.getDate());
     }
 
     @Override
@@ -47,7 +48,7 @@ public class OHChangeRecyclerAdapter extends RecyclerView.Adapter<OHChangeRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView palletIDTextView, changedByTextView, previousQuantityTextView, newQuantityTextView;
+        TextView palletIDTextView, changedByTextView, previousQuantityTextView, newQuantityTextView, ohChangeDateTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +57,7 @@ public class OHChangeRecyclerAdapter extends RecyclerView.Adapter<OHChangeRecycl
             changedByTextView = (TextView) itemView.findViewById(R.id.changedByTextView);
             previousQuantityTextView = (TextView) itemView.findViewById(R.id.previousQuantityTextView);
             newQuantityTextView = (TextView) itemView.findViewById(R.id.newQuantityTextView);
+            ohChangeDateTextView = (TextView) itemView.findViewById(R.id.ohChangeDateTextView);
         }
     }
 }

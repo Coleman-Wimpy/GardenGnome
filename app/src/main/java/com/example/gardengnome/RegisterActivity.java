@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextName, editTextEmail, editTextPassword;
     private Button registerButton;
     private ImageView logo;
-    private int userRoleID = 1;
+    private int userRoleID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,11 +113,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 Toast.makeText(RegisterActivity.this, "User has been registered.", Toast.LENGTH_LONG).show();
                                 progressBar.setVisibility(View.GONE);
 
+                                FirebaseAuth.getInstance().signOut();
+
                                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                             }
                             else{
                                 Toast.makeText(RegisterActivity.this, "Registration Failed. Try Again.", Toast.LENGTH_LONG).show();
                                 progressBar.setVisibility(View.GONE);
+
+                                FirebaseAuth.getInstance().signOut();
                             }
                         }
                     });

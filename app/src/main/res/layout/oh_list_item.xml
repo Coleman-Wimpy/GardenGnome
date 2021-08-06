@@ -3,7 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/holo_orange_dark"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/ohChangeDateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="6pt"
+        android:text="02-12-2021"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_orange_dark"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp"
+        android:maxLines="1"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        />
 
     <GridLayout
         android:layout_width="match_parent"

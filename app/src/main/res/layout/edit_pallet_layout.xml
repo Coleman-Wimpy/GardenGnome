@@ -9,14 +9,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/holo_orange_dark"
         android:paddingTop="5dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@android:color/darker_gray">
+            android:background="@android:color/holo_orange_dark">
 
             <TextView
                 android:layout_width="wrap_content"
